@@ -1,0 +1,12 @@
+*{
+    margin:0;
+    box-sizing: border-box;
+    padding:0;
+}
+body{
+    overflow-x: hidden;
+    font-family:sans-serif;
+    font-weight: lighter;
+    letter-spacing: 1px;
+    user-select: none;
+}

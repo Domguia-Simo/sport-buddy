@@ -1,0 +1,24 @@
+.form-container{
+    border:solid 1px rgba(0,0,0,0.2);
+    width: fit-content;
+    margin:0px auto;
+    padding:30px ;
+    margin-top:50px;
+}
+
+.form-container  form{
+    display: flex;
+    flex-direction: column;
+    gap:20px;
+}
+
+.form-group{
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group input{
+    width:200px;
+    padding:5px;
+    outline: none;
+}
