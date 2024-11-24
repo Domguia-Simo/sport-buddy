@@ -97,7 +97,7 @@ const MatchUser = () => {
 
             {/* the list of matched users */}
             <div style={{border:'solid 0px red' ,width:'70%' ,margin:'auto'}} >   
-                {matches.map((match ,index) => {
+            {matches && matches.length != 0 &&matches.map((match ,index) => {
                     return (
                         <div key={index} style={{display:"flex" ,flexDirection:'column' ,border:'solid 1px rgb(0,0,0,0.1)' ,
                         width:'fit-content' ,padding:'10px' ,borderRadius:'10px' }}  >
