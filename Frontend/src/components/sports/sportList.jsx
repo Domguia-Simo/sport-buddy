@@ -32,6 +32,22 @@ useLayoutEffect(()=>{
     getSports()
 } ,[0])
 
+async function deleteSport(id){
+    try{    
+        const resopnse = await fetch(`http://localhost:5000/api/sport/delete-sport/${id}` ,{
+            method:'delete',
+        })
+        alert("sport deleted")
+    }catch(e){
+        console.log(e)
+        alert(e.message)
+    }
+}
+    
+    function updateSport(sport){
+        navigate("/create-sport" ,{state:sport})
+    }
+
     return(
         <React.Fragment>
             <Header/>
@@ -45,14 +61,14 @@ useLayoutEffect(()=>{
                         <tr>
                             <th>Name</th>
                             <th>Muscle</th>
-                            <th>Dscription</th>
+                            {/* <th>Dscription</th> */}
                             <th>Action</th>
 
                         </tr>
                     </thead>
                     <tbody>
                         
-                        {sports.map((sport , index) => <Sport key={index} sport={sport} />)}
+                        {sports.map((sport , index) => <Sport key={index} sport={sport} deleteSport={deleteSport} updateSport={updateSport} />)}
 
                     </tbody>
                 </table>

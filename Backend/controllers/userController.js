@@ -26,7 +26,8 @@ const register = async(req ,res)=>{
     try{
         console.log(req.body);
 
-        const {email ,password ,confirm} = req.body
+        const {email ,password ,confirm ,userName} = req.body
+        if(!email || !password || !userName || !confirm){return res.status(400).json({error:'Fill all the fields'})}
         const existingUser = await userModel.findOne({email:email})
         if(existingUser){
             return res.status(401).json({error:'Email already in use'})
@@ -37,7 +38,8 @@ const register = async(req ,res)=>{
                 
                 const user = new userModel({
                     email:email,
-                    password:hashPwd
+                    password:hashPwd,
+                    userName:userName
                 })
 
                 await user.save()
@@ -55,4 +57,24 @@ const register = async(req ,res)=>{
 }
 
 
-module.exports = {login ,register}
+const matchUsers=async(req ,res)=>{
+    try{
+        const {userId} = req.params
+        const {sport ,level} = req.body
+
+        const user = await userModel.findOneAndUpdate({_id:userId} ,{
+            $set:{sports:{name:sport ,level:level}}
+        } ,{new:true})
+        await user.save()
+
+        const matches = await userModel.find({'sports.name':sport}).populate('sports.name')
+            return res.status(200).json({users:matches})
+
+    }
+    catch(e){
+        console.log(e)
+        return res.status(500).json({error:'server error'})
+    }
+}
+
+module.exports = {login ,register ,matchUsers}

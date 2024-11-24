@@ -1,5 +1,6 @@
 import React ,{useState ,useEffect ,useLayoutEffect} from 'react'
 import EventItem from './evevntItem'
+import '../../assets/styles/eventStyles.css'
 
 const Event =()=>{
 

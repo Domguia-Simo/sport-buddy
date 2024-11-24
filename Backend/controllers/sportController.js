@@ -45,15 +45,13 @@ const deleteSport =async(req ,res)=>{
 
 const updateSport =async(req ,res)=>{
     try{
-        let {name ,description ,muscle,id} = req.body
-            let sport = await sportModel.findById({_id:id})
-            sport = {name ,description ,muscle};
-            sport = await sport.save()
+        let {name ,description ,muscle,_id} = req.body
+            const sport = await sportModel.findOneAndUpdate({_id:_id},{$set:{name ,description ,muscle}} ,{new:true})
                 return res.status(200).json({sport:sport})
     }
     catch(e){
         console.log(e.message);
-        return res.status(500),json({error:'Server error '+e.message})  
+        return res.status(500).json({error:'Server error '+e.message})  
     }
 }
 

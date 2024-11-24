@@ -14,14 +14,16 @@ const getEvents =async(req ,res)=>{
 const createEvent =async(req ,res)=>{
     try{
         console.log(req.body);
-        const {sport ,description ,date , time ,level} = req.body
-        if(!sport || !description || !date || !time ){return res.status(401).json({error:'Fill the entire form'})}
+        const {sport ,description ,date , time ,level ,userId ,location} = req.body
+        if(!sport || !description || !date || !time || !userId || !location){return res.status(401).json({error:'Fill the entire form'})}
         let event = new eventModel({
             sport:sport ,
             description:description,
             date:date,
             levelRequired:level,
-            time:time
+            time:time,
+            user:userId,
+            location:location
         })
         event = await event.save()
         return res.status(201).json({event:event})
@@ -46,9 +48,9 @@ const deleteEvent =async(req ,res)=>{
 
 const updateEvent =async(req ,res)=>{
     try{
-        let {sport ,description ,date ,time ,level,id} = req.body
+        let {sport ,description ,date ,time ,level,id ,location} = req.body
             let event = await eventModel.findById({_id:id})
-            event = {sport ,description ,date ,time ,levelRequired:level};
+            event = {sport ,description ,date ,time ,levelRequired:level ,location};
             event = await event.save()
                 return res.status(200).json({event:event})
     }
@@ -59,4 +61,18 @@ const updateEvent =async(req ,res)=>{
 }
 
 
-module.exports = {getEvents ,createEvent ,deleteEvent ,updateEvent}
+const getUserEvents=async(req ,res)=>{
+    try{
+        const {userId} = req.params
+        // console.log(userId)
+        const events = await eventModel.find({user:userId}).populate('sport' ,'name').populate('location')
+        return res.status(200).json({events:events})
+    }
+    catch(e){
+        console.log(e)
+        return res.status(500).json({error:'server error'})
+    }
+}
+
+
+module.exports = {getEvents ,createEvent ,deleteEvent ,updateEvent ,getUserEvents}

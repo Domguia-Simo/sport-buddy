@@ -7,7 +7,9 @@ import {RouterProvider ,createBrowserRouter ,createRoutesFromElements ,Route} fr
 import AuthLayout from "./auths/authLayout";
 import SportList from "./components/sports/sportList";
 import CreateSport from "./components/forms/createSport";
-import CreateEvent from "./components/forms/createEvents";
+import ManageEvent from "./components/forms/manageEvents";
+import MatchUser from "./components/forms/matchUsers";
+import ManageLocation from "./components/forms/manageLocation";
 
 const App =() =>{
 
@@ -17,7 +19,12 @@ const router = createBrowserRouter(createRoutesFromElements(
 
         <Route path="/sport-list" element={<SportList/>} /> ,
         <Route path="/create-sport" element={<CreateSport/>} /> ,
-        <Route path="/create-event" element={<CreateEvent/>} />,
+        <Route path="/manage-event" element={<ManageEvent/>} />,
+        <Route path="/manage-location" element={<ManageLocation/>} />,
+
+
+        <Route path="/match-users" element={<MatchUser/>} />,
+
 
         <Route path="/auth" element={<AuthLayout/>} >
             <Route index path="login" element={<Login/>} />,

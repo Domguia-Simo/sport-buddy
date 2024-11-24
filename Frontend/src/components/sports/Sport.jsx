@@ -1,15 +1,15 @@
 import React from "react";
 
-const Sport =({sport})=>{
+const Sport =({sport ,deleteSport ,updateSport })=>{
     return(
         <React.Fragment>
             <tr>
                 <td>{sport.name}</td>
                 <td>{sport.muscle}</td>
-                <td>{sport.description}</td>
+                {/* <td>{sport.description}</td> */}
                 <td>
-                    <button>update</button>
-                    <button>delete</button>
+                    <button onClick={()=>updateSport(sport)} >update</button>{' '}
+                    <button onClick={()=>deleteSport(sport._id)} >delete</button>
                 </td>
             </tr>
         </React.Fragment>

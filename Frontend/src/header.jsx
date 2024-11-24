@@ -35,14 +35,16 @@ const Header = () => {
             style=
             {{
                 display:"flex" ,justifyContent:'space-between' ,padding:'15px',
-                border:'solid 1px red' ,alignItems:'baseline'
+                border:'solid 1px grey' ,alignItems:'baseline'
             }} 
         >
             <span style={{fontSize:'xx-large' ,cursor:'pointer'}} onClick={()=>navigate("/")}>Sport Buddy</span>
             <div style={{display:'flex' ,gap:'20px'}} >
-                <Link to="/create-event" ><span> Create an event</span></Link>
-                <Link to="match-users"><span>Match with users</span></Link>
-                {user && user.accountType && user.accountType =='admin' && <Link to="/sport-list" > Manage sports </Link>}
+                <Link to="/manage-event" ><span> event</span></Link>
+                <Link to="/match-users"><span>Match with users</span></Link>
+                {user && user.accountType && user.accountType =='admin' && <Link to="/sport-list" > sport </Link>}
+                {user && user.accountType && user.accountType =='admin' && <Link to="/manage-location" > location </Link>}
+
                 <span  style={{cursor:'pointer' }} onClick={logout}>Logout</span>
 
             </div>

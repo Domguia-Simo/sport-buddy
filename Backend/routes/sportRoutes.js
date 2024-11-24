@@ -5,7 +5,7 @@ const { getSports, createSport, deleteSport, updateSport } = require('../control
 
 router.get("/get-sports" ,getSports)
 router.post("/create-sport" ,createSport)
-router.delete("/delete-sport" ,deleteSport)
+router.delete("/delete-sport/:id" ,deleteSport)
 router.put("/update-sport" ,updateSport)
 
 

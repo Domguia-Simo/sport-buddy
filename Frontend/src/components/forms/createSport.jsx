@@ -1,13 +1,23 @@
-import React ,{useState} from "react";
-import {useNavigate} from 'react-router-dom'
+import React ,{useEffect, useState} from "react";
+import {useLocation, useNavigate} from 'react-router-dom'
 import Header from "../../header";
 
 const CreateSport =() => {
 
     const navigate = useNavigate()
+    const location = useLocation()
+
     const [info ,setInfo] = useState({name:'' ,muscle:'' ,description:''})
     const [loading ,setLoading] = useState(false)
+    const [update ,setUpdate] = useState(false)
     const [error ,setError] = useState('')
+
+    useEffect(()=>{
+        if(location.state){
+            setUpdate(true)
+            setInfo(location.state)
+        }
+    } ,[0])
 
     async function create(e){
 
@@ -39,6 +49,25 @@ const CreateSport =() => {
             setLoading(false)
         }
     }
+    
+    async function updateSport(e){
+        e.preventDefault()
+        try{
+            const response = await fetch(`http://localhost:5000/api/sport/update-sport` ,{
+                method:'put',
+                headers:{'content-type':'application/json'},
+                body:JSON.stringify(info)
+            })
+            const data = await response.json()
+            if(response.ok){
+                alert('sport updated')
+                navigate("/sport-list")
+            }else{alert(data.error || 'an error occured')}
+        }catch(e){
+            console.log(e)
+            alert(e.message)
+        }finally{setUpdate(false)}
+    }
 
     return(
         <React.Fragment>
@@ -51,7 +80,7 @@ const CreateSport =() => {
                 </div>
 
             <div className="form-container" >
-                <form onSubmit={(e)=>create(e)} >
+                <form onSubmit={(e)=>update ? updateSport(e):create(e)} >
                     <div className="form-group" >
                         <span>Name</span>
                         <input type="text" placeholder="ex: football" value={info.name} onChange={e=>setInfo({...info ,name:e.target.value})} />
@@ -69,7 +98,7 @@ const CreateSport =() => {
 
                     {error && <div style={{color:'crimson'}} >{error}</div>}
 
-                    <button disabled={loading} >Create sport</button>
+                    <button disabled={loading} >{update ? 'update sport':'Create sport'}</button>
                 </form>
             </div>
         </React.Fragment>

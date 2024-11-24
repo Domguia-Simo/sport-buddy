@@ -2,6 +2,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const cors = require('cors')
 const bodyParser = require('body-parser')
+const dotenv = require('dotenv').config()
 
 
 const app = express()
@@ -14,6 +15,7 @@ app.use(bodyParser.json())
 const port = 5000
 
 const url = "mongodb://127.0.0.1:27017/sport_buddy"
+
 mongoose.connect(url).then(()=>{
     console.log("Connection to db successfull")
 })
@@ -25,6 +27,7 @@ const sportRoutes = require('./routes/sportRoutes')
 const cityRoutes = require('./routes/cityRoutes')
 const areaRoutes = require('./routes/areaRoutes')
 const eventRoutes = require('./routes/eventRoutes')
+const locationRoutes = require('./routes/locationRoutes')
 
 
 app.use("/api/user" ,userRoutes)
@@ -32,6 +35,8 @@ app.use("/api/sport" ,sportRoutes)
 app.use("/api/city" ,cityRoutes)
 app.use("/api/area" ,areaRoutes)
 app.use("/api/event" ,eventRoutes)
+app.use("/api/location" ,locationRoutes)
+
 
 
 app.get("/" ,(req ,res)=>{

@@ -4,7 +4,7 @@ import {Link ,useNavigate} from 'react-router-dom'
 const Register = () => {
 
     const navigate = useNavigate()
-    const [info ,setInfo] = useState({email:'' ,password:'' ,confirm:''})
+    const [info ,setInfo] = useState({userName:'' ,email:'' ,password:'' ,confirm:''})
     const [loading ,setLoading] = useState(false)
     const [error ,setError] = useState('')
 
@@ -49,6 +49,17 @@ const submitForm =async(e)=>{
         <div>
 
             <form onSubmit={(e)=>submitForm(e)} >
+
+                <div className="form-group" >
+                    <span>UserName</span>
+                    <input 
+                        type="text" 
+                        value={info.userName} 
+                        onChange={e=>setInfo({...info ,userName:e.target.value})} 
+                        placeholder="ex: simo@gmail.com" 
+                    />
+                </div>
+
 
                 <div className="form-group" >
                     <span>Email</span>
